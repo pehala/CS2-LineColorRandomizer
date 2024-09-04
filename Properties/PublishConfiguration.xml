@@ -8,11 +8,11 @@
 	<!--Long description of the mod. Single line or multi line. Supports minimal markdown subset-->
 	<!--LongDescription Value="This is a long description" /-->
 	<LongDescription>
-		* Randomizes color of the public transport lines.
-		* Works on all public transport types
-		* Color is changed when you select appropriate line tool.
-		* Dont like the color? You can still override it manually
-		* If you want to randomize color again, switch to building something else (like tracks or road) and then switch back
+	* Randomizes color of the public transport lines.
+	* Works on all public transport types
+	* Color is changed when you select appropriate line tool and after you finish Transport Line
+	* Dont like the color? You can still override it manually
+	* If you want to randomize color again, switch to building something else (like tracks or road) and then switch back
 	</LongDescription>
 	<PDXAccountDataPath>pdx_account.txt</PDXAccountDataPath>
 	<!--Thumbnail-->
@@ -24,13 +24,18 @@
 	<!--Link to the forum post where the mod can be discussed-->
 	<ForumLink Value="" />
 	<!--Version of the mod-->
-	<ModVersion Value="0.1" />
+	<ModVersion Value="0.2" />
 	<!--Recommended version of the base game to use the mod-->
-	<GameVersion Value="1.0.*" />
+	<GameVersion Value="1.*" />
 	<!--Dependency for the mod, can be set multiple times-->
 	<Dependency Id="" />
 	<!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
-	<ChangeLog Value="Initial version" />
+	<ChangeLog>
+	* Generate broader spectrum of colors
+	* Colors now should be more different from each other
+	* Change also initial color
+	* Change color after finishing Line
+	</ChangeLog>
 	<!--ChangeLog>
 	</ChangeLog-->
 	<!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon, buymeacoffee, kofi, crowdin, gitlab-->

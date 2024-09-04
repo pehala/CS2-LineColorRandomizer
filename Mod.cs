@@ -4,12 +4,19 @@ using Game.Modding;
 using Game.Tools;
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 namespace LineColorRandomizer
 {
 
     public class Mod : IMod
     {
+        public static Color32 generateRandomColor() {
+            Color32 color = Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.5f, 1f);
+            log.Info($"Set RoadTool color to {color}");
+            return color;
+        }
+
         public static ILog log = LogManager.GetLogger(nameof(LineColorRandomizer))
             .SetShowsErrorsInUI(true);
         public void OnLoad(UpdateSystem updateSystem)
@@ -32,13 +39,30 @@ namespace LineColorRandomizer
     }
     
     [HarmonyPatch(typeof(RouteToolSystem), nameof(RouteToolSystem.TrySetPrefab))]
-    class RandomColorPatch
+    class ChangeColorOnInitialize
     {
         static void Prefix(ref RouteToolSystem __instance)
         {
-            Color32 color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-            __instance.color = color;
-            Mod.log.Info($"Set RoadTool color to {color}");
+            __instance.color = Mod.generateRandomColor();
+        }
+    }
+
+    [HarmonyPatch(typeof(RouteToolSystem), "Apply")]
+    class ChangeColorOnNewLine
+    {
+
+        static void Prefix(ref RouteToolSystem __instance, out bool __state)
+        {
+            __state = (RouteToolSystem.State) Traverse.Create(__instance).Field("m_State").GetValue() == RouteToolSystem.State.Create;
+        }
+
+        static void Postfix(ref RouteToolSystem __instance, bool __state)
+        {
+            if (__state) {
+                if (__state = (RouteToolSystem.State) Traverse.Create(__instance).Field("m_State").GetValue() == RouteToolSystem.State.Default) {
+                    __instance.color = Mod.generateRandomColor();
+                }
+            }
         }
     }
 }

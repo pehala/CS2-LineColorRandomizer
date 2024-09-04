@@ -4,3 +4,6 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 pdx_account.txt
+.idea/
+*.user
+Library/
